@@ -21,7 +21,7 @@ jobs:
             sudo apt-get update
             sudo apt-get -qq install git-ftp
             echo "Deploying project ..."
-            git ftp push --user "yeho123" --passwd "yupiyey345" ftp://108.175.14.140/httpdocs/ -b master
+            git ftp init push --user "yeho123" --passwd "yupiyey345" ftp://108.175.14.140/httpdocs/ -b master
 
 
 # Orchestrate jobs using workflows
