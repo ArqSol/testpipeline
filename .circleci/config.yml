@@ -29,9 +29,15 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Get Latest Commit Hash"
+          command: |
+            LATEST_COMMIT_HASH=$(git rev-parse HEAD)
+            echo $LATEST_COMMIT_HASH > latest_commit_hash.txt
+      - run:
           name: "Git Blame and Send Email"
           command: |
-            git blame -c HEAD > git_blame_output.txt
+            LATEST_COMMIT_HASH=$(cat latest_commit_hash.txt)
+            git show $LATEST_COMMIT_HASH > git_blame_output.txt
             cat git_blame_output.txt
             echo "Sending email..."
             echo -e "Subject: Git Blame Information\n\n$(cat git_blame_output.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
