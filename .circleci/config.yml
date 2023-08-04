@@ -37,11 +37,13 @@ jobs:
           name: "Get Latest Commit Hash"
           command: |
             LATEST_COMMIT_HASH=$(git rev-parse HEAD)
+            echo $LATEST_COMMIT_HASH
             echo $LATEST_COMMIT_HASH > latest_commit_hash.txt
       - run:
           name: "Git Blame and Save Output"
           command: |
             LATEST_COMMIT_HASH=$(cat latest_commit_hash.txt)
+            git show $LATEST_COMMIT_HASH 
             git show $LATEST_COMMIT_HASH > git_blame_output.txt
             cat git_blame_output.txt > email_content.txt
       - run:
