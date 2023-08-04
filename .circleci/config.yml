@@ -29,18 +29,26 @@ jobs:
     steps:
       - checkout
       - run:
+          name: "Install Mail Client"
+          command: |
+            sudo apt-get update
+            sudo apt-get -qq install mailutils
+      - run:
           name: "Get Latest Commit Hash"
           command: |
             LATEST_COMMIT_HASH=$(git rev-parse HEAD)
             echo $LATEST_COMMIT_HASH > latest_commit_hash.txt
       - run:
-          name: "Git Blame and Send Email"
+          name: "Git Blame and Save Output"
           command: |
             LATEST_COMMIT_HASH=$(cat latest_commit_hash.txt)
             git show $LATEST_COMMIT_HASH > git_blame_output.txt
-            cat git_blame_output.txt
-            echo "Sending email..."
-            echo -e "Subject: Git Blame Information\n\n$(cat git_blame_output.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
+            cat git_blame_output.txt > email_content.txt
+      - run:
+          name: "Send Email via Mail Command"
+          command: |
+            echo -e "Subject: Git Blame Information\n\n$(cat email_content.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
+
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
