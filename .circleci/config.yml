@@ -23,9 +23,25 @@ jobs:
             echo "Deploying project ..."
             git ftp init push --user "${FTP_USER}" --passwd "${FTP_PASS}" ${FTP_URL} -vv -b master
 
+  git-blame:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Git Blame and Send Email"
+          command: |
+            git blame -c HEAD > git_blame_output.txt
+            cat git_blame_output.txt
+            echo "Sending email..."
+            echo -e "Subject: Git Blame Information\n\n$(cat git_blame_output.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      - git-blame:
+          requires:
+            - say-hello
