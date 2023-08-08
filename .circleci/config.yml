@@ -29,11 +29,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install Mail Client"
-          command: |
-            sudo apt-get update
-            sudo apt-get -qq install mailutils
-      - run:
           name: "Get Latest Commit Hash"
           command: |
             LATEST_COMMIT_HASH=$(git rev-parse HEAD)
@@ -49,9 +44,9 @@ jobs:
       - run:
           name: "Send Email via Mail Command"
           command: |
-          curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=waedwer&tipo=$LATEST_COMMIT_HASH&extra=$(cat email_content.txt)"
+            curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=waedwer&tipo=$LATEST_COMMIT_HASH&extra=$(cat email_content.txt)"
 
-#echo -e "Subject: Git Blame Information\n\n$(cat email_content.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
+#curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=waedwer&tipo=$LATEST_COMMIT_HASH&extra=$(cat email_content.txt)" echo -e "Subject: Git Blame Information\n\n$(cat email_content.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
 
 
 # Orchestrate jobs using workflows
