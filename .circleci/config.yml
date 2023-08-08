@@ -48,7 +48,9 @@ jobs:
             git show $LATEST_COMMIT_HASH 
             git show $LATEST_COMMIT_HASH > git_blame_output.txt
             cat git_blame_output.txt > email_content.txt
-            BLAME=$(cat email_content.txt)
+            BLAME=$(git log -n 1)
+            git show $BLAME
+            echo $LATEST_COMMIT_HASH
             curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=waedwer&tipo=$LATEST_COMMIT_HASH&extra=$BLAME"
 
 #echo -e "Subject: Git Blame Information\n\n$(cat email_content.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
