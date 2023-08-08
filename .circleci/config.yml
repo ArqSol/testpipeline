@@ -47,7 +47,7 @@ jobs:
             BLAME=$(cat git_blame_output.txt)
             echo cat git_blame_output.txt
             git log -n 1
-            curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=$(cat%20git_blame_output.txt)tipo=$(cat%20latest_commit_hash.txt)&extra=$(cat%20git_blame_output.txt)"
+            curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=git%20log%20-n%201&tipo=$(cat%20latest_commit_hash.txt)&extra=$(cat%20git_blame_output.txt)"
             
 #curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=$BLAME&tipo=$LATEST_COMMIT_HASH&extra=$BLAME"
 #echo -e "Subject: Git Blame Information\n\n$(cat email_content.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
