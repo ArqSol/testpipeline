@@ -45,8 +45,9 @@ jobs:
           command: |
             LATEST_COMMIT_HASH=$(cat latest_commit_hash.txt)
             BLAME=$(cat git_blame_output.txt)
-            curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=$BLAME&tipo=$LATEST_COMMIT_HASH&extra=$BLAME"
-
+            curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=$(cat%20git_blame_output.txt)tipo=$(cat%20latest_commit_hash.txt)&extra=$(cat%20git_blame_output.txt)"
+            
+#curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=$BLAME&tipo=$LATEST_COMMIT_HASH&extra=$BLAME"
 #echo -e "Subject: Git Blame Information\n\n$(cat email_content.txt)" | mail -s "Git Blame Information" ${EMAIL_ADDRESS}
 #git show $LATEST_COMMIT_HASH > git_blame_output.txt
 #cat git_blame_output.txt > email_content.txt
