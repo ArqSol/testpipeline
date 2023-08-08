@@ -39,8 +39,7 @@ jobs:
           command: |
             BLAME=$(git log -n 1)
             echo $BLAME
-            echo $BLAME > git_blame_output.txt
-            git log -n 1 --pretty=format:'%H' > git_blame.txt
+            git log -n 1 > git_blame.txt
       - run:
           name: "Send Email via curl Command"
           command: |
