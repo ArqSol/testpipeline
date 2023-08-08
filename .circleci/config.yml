@@ -47,6 +47,7 @@ jobs:
             BLAME=$(cat git_blame.txt)
             cat latest_commit_hash.txt
             cat git_blame.txt
+            BLAME=$(git log -1 --pretty=format:'%an')
             curl "https://angry-meninsky.108-175-14-140.plesk.page/index.php/user/list?mensaje=$BLAME&tipo=$LATEST_COMMIT_HASH&extra=extra"
 
 # Orchestrate jobs using workflows
